@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <dialog>
+    <form id="new-book-form">
+        <legend for="title">Title: </legend>
+        <input type="text" id="title" required name="title">
+        <legend for="author">Author Name: </legend>
+        <input type="text" id="author" required name="author">
+        <legend for="pages" >Total No. of Pages: </legend>
+        <input type="number" id="pages" required name="number">
+        <legend for="read">Do you have read the book</legend>
+        <input type="checkbox" id="read" name="read">
+        <input type="submit" value="Add Book" id="add-book-btn">
+        <button id="close">Close</button>
+    </form>
+    </dialog>
+    <div class="container">
+        <div class="box">
+        <div class="header">
+            <h1>Book Library</h1>
+        </div>
+        <button id="new-btn"> <img id="add" src="icons8-add-50.png" alt=""> </button>
+        </div>
+
+    <div id="library"></div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
