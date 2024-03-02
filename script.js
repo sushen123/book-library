@@ -7,6 +7,10 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+const loginDialog = document.querySelector("#login-dialog");
+const loginButton = document.getElementById("login-btn");
+const singup = document.querySelector("#sign-up");
+
 function display() {
     let library = document.querySelector("#library");
     library.innerHTML = "";
@@ -58,16 +62,24 @@ function addBookToLibrary() {
     let author = document.querySelector("#author");
     let pages = document.querySelector("#pages");
     let read = document.querySelector("#read");
+   
 
 function defaultInputElement() {
     title.value = "";
     author.value = "";
     pages.value = "";
     read.checked = false;
+    email.value = "";
+    country.value = "";
+    zipCode.value = "";
+    password.value = "";
+    confirmPassword.value = "";
+
 }
 let newForm = document.querySelector("#new-book-form");
-let dialog = document.querySelector("dialog");
+let dialog = document.querySelector("#form-dialog");
 let newBtn = document.querySelector("#new-btn");
+let closelogin = document.querySelector("#closeLogin");
 newBtn.addEventListener("click", function() {
     
     dialog.showModal();
@@ -88,15 +100,85 @@ addBtn.addEventListener("click", function(event) {
 const closeBtn = document.querySelector("#close");
 closeBtn.addEventListener("click", () => {
     dialog.close();
+    loginDialog.close();
     defaultInputElement();
 })
 
-// let data = document.querySelector(".data");
-// let reads = document.querySelector("#read");
-// let notRead = document.querySelector("#not-read");
+let email = document.querySelector("#email");
+let country = document.querySelector("#country");
+let zipCode = document.querySelector("#zip-code");
+let password = document.querySelector("#password");
+let confirmPassword = document.querySelector("#confirm-password");
 
-// reads.addEventListener("change", function() {
-//     if(reads.checked) {
-        
-//     }
-// })
+loginButton.addEventListener("click", () => {
+    loginDialog.showModal();
+})
+
+function validatePassword() {
+    const passwordValue = password.value;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*&])[A-Za-z\d@$!%*@]{8,}$/;
+    if(!passwordPattern.test(passwordValue)){
+        password.setCustomValidity("The paswword must be at least 8 characters, one uppercase letter, one digit, and one special characters");
+    }
+    else{
+        password.setCustomValidity("");
+    }
+     
+    password.reportValidity();
+
+}
+
+
+
+function validateEmail() {
+    if(!email.checkValidity()){
+        email.setCustomValidity("Please the enter valid email");
+    }
+    else{
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(emailValue)) {
+            email.setCustomValidity("Please enter a valid email address");
+        } else {
+            email.setCustomValidity("");
+        }
+    }
+
+    email.reportValidity();
+}
+
+function validateConfirmPassowrd() {
+    const confirmPasswordValue  = confirmPassword.value;
+
+    if(confirmPasswordValue!== password.value){
+        confirmPassword.setCustomValidity("Please enter the same password as above");
+
+    }
+    else{
+        confirmPassword.setCustomValidity("");
+    }
+
+    confirmPassword.reportValidity();
+}
+
+password.addEventListener("input", validatePassword);
+confirmPassword.addEventListener("input", validateConfirmPassowrd);
+email.addEventListener("input", validateEmail);
+
+singup.addEventListener("click", (event) => {
+    event.preventDefault();
+    validateConfirmPassowrd();
+    validatePassword();
+    validateEmail();
+    if(form.checkValidity()){
+        loginDialog.close();
+        defaultInputElement();
+    }
+})
+
+closelogin.addEventListener("click", () => {
+    loginDialog.close();
+    defaultInputElement();
+
+})
+
